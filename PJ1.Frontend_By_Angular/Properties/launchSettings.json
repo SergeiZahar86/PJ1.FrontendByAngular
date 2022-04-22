@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "PJ1.Frontend_By_Angular": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:10003;http://localhost:10033",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

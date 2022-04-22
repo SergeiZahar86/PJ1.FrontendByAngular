@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PJ1.Frontend_By_Angular", "PJ1.Frontend_By_Angular\PJ1.Frontend_By_Angular.csproj", "{6F419C74-CE41-4DE2-87A9-3D32717C2971}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F419C74-CE41-4DE2-87A9-3D32717C2971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F419C74-CE41-4DE2-87A9-3D32717C2971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F419C74-CE41-4DE2-87A9-3D32717C2971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F419C74-CE41-4DE2-87A9-3D32717C2971}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
