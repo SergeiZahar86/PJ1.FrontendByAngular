@@ -1,1 +1,30 @@
-<p>dashboard works!</p>
+<div>
+    <button (click)="clearState()"
+            id='clearState'>Очистить устаревшее состояние
+    </button>
+    <button (click)="getUser()"
+            id='getUser'>Получить пользователя
+    </button>
+    <button (click)="removeUser()"
+            id='removeUser'>Удалить пользователя
+    </button>
+</div>
+<div>
+    <button (click)="startSigninMainWindow()"
+            id='startSigninMainWindow'>Начать сигнал главного окна
+    </button>
+    <button (click)="endSigninMainWindow()"
+            id='endSigninMainWindow'>Завершить главное окно
+    </button>
+</div>
+<div>
+    <button (click)="startSignoutMainWindow()"
+            id='startSignoutMainWindow'>Начните подписание главное окно
+    </button>
+    <button (click)="endSignoutMainWindow()"
+            id='endSignoutMainWindow'>Конец подписания главного окна
+    </button>
+</div>
+<div *ngIf="_user">
+    <pre>{{_user | json}}</pre>
+</div>
