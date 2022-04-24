@@ -28,7 +28,8 @@ const settings: any = {
     /** Идентификатор вашего клиента, зарегистрированный в OIDC/OAuth2 */
     client_id: 'client_js',
 
-    /** Redirect URI вашего клиента приложения при получения ответа от провайдера OIDC / OAUTH2 */
+    /** Redirect URI вашего клиента приложения при получения ответа
+     *  от провайдера OIDC / OAUTH2 */
     redirect_uri: 'http://localhost:10003/auth.html',
 
     /** The OIDC/OAuth2 post-logout перенаправление после разлагина URI */
