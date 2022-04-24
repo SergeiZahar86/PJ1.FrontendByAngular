@@ -66,7 +66,7 @@ const settings: any = {
     /** флаг для управления загрузкой дополнительных идентификационных данных
      *  из конечной точки сведений о пользователе для заполнения файла profile.
      *  (по умолчанию: true) */
-    loadUserInfo: true,
+    loadUserInfo: false,
 
 
     // --- Дополнительные настройки не входившие в шаблон ---------------------------------------
@@ -119,7 +119,7 @@ const settings: any = {
      *  (например address, ), с утверждениями из токена id как единый объект.
      *  В противном случае они добавляются в массив как отдельные
      *  объекты для типа утверждения.*/
-    //mergeClaims: false
+    mergeClaims: false
 
 };
 
@@ -210,8 +210,8 @@ export class AuthService {
     /**
      * Получение пользователя
      */
-    getUser() {
-        this.userManager.getUser().then((user) => {
+    async getUser() {
+        await this.userManager.getUser().then((user) => {
             this.currentUser = user;
             console.log('got user', user);
             this.userLoadedEvent.emit(user);

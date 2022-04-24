@@ -1,18 +1,21 @@
 <body>
-  <app-nav-menu></app-nav-menu>
-  <button
-          [routerLink]="['']"
-  >One resource
-  </button>
-  <button
-          [routerLink]="['counter']"
-  >counter
-  </button>
-  <button
-          [routerLink]="['fetch-data']"
-  >fetch-data
-  </button>
-  <div class="container">
-    <router-outlet></router-outlet>
+<app-nav-menu></app-nav-menu>
+<button
+        [routerLink]="['']"
+>One resource
+</button>
+<button
+        [routerLink]="['counter']"
+>counter
+</button>
+<button
+        [routerLink]="['fetch-data']"
+>fetch-data
+</button>
+  <div class = "token">
+    {{curentUserString | json}}
   </div>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
 </body>
