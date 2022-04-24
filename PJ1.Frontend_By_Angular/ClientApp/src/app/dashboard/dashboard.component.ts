@@ -34,9 +34,13 @@ export class DashboardComponent implements OnInit {
   endSigninMainWindow() {
     this.authService.endSigninMainWindow();
   }
+  
+  /** Sign Out */
   startSignoutMainWindow() {
     this.authService.startSignoutMainWindow();
   }
+  
+  /** Sign In */
   endSignoutMainWindow() {
     this.authService.endSigninMainWindow();
   }

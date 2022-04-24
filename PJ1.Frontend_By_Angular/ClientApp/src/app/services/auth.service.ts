@@ -1,39 +1,128 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {User, UserManager, WebStorageStateStore} from "oidc-client";
+import {
+    ClockService, OidcMetadata, StateStore, User, UserManager, WebStorageStateStore
+} from "oidc-client";
 import {environment} from "../../environments/environment";
 import {map, Observable} from "rxjs";
 import {from} from 'rxjs';
+import {F} from "@angular/cdk/keycodes";
 //import {Headers, RequestOptions, Response} from '@angular/http';
 
 
+/**
+ * Настройки клиента аутентификации.
+ * Полный список параметров конфигурации см. в официальной документации oidc-client-js
+ * https://github.com/IdentityModel/oidc-client-js/wiki#configuration
+ *  * @type {{loadUserInfo: boolean, automaticSilentRenew: boolean, userStore:
+ * WebStorageStateStore, response_type: string, checkSessionInterval: number,
+ * post_logout_redirect_uri: string, popupWindowTarget: string, staleStateAge: number, client_id:
+ * string, silentRequestTimeout: number, stateStore: WebStorageStateStore, authority: string,
+ * scope: string, includeIdTokenInSilentRenew: boolean, mergeClaims: boolean, redirect_uri: string,
+ * clockSkew: number, silent_redirect_uri: string, accessTokenExpiringNotificationTime: number,
+ * revokeAccessTokenOnSignout: boolean, filterProtocolClaims: boolean, monitorSession: boolean}}
+ */
 const settings: any = {
-    // TODO Добавить все комментарии для свойств, и добавить все возможные 
-    //  свойства для наглядности
-    
+
+    /** URL провайдера OIDC / OAUTH2 */
     authority: 'https://localhost:10001',
+
+    /** Идентификатор вашего клиента, зарегистрированный в OIDC/OAuth2 */
     client_id: 'client_js',
+
+    /** Redirect URI вашего клиента приложения при получения ответа от провайдера OIDC / OAUTH2 */
     redirect_uri: 'http://localhost:10003/auth.html',
+
+    /** The OIDC/OAuth2 post-logout перенаправление после разлагина URI */
     post_logout_redirect_uri: 'http://localhost:10003/',
-    response_type: 'code',
-    scope: 'openid profile SwaggerAPI',
-    userStore: new WebStorageStateStore(
-        {store: window.localStorage}),
+
+    /** URL -адрес страницы, содержащей код, обрабатывает тихое возобновление */
     silent_redirect_uri: 'http://localhost:10003/silent-renew.html',
-    
-    /**
-     *  Флаг, чтобы указать, должна ли быть автоматическая попытка возобновить токен
-     *  доступа до его истечения (по умолчанию: false)
-     */
+
+    /** Тип ответа требуемый из поставщика OIDC / OAUTH2 (default: 'id_token') */
+    response_type: 'code',
+
+    /** The scope Запрашивается от провайдера OIDC / OAUTH2 (default: 'openid') */
+    scope: 'openid profile SwaggerAPI',
+
+    /** Объект хранения, используемый для сохранения пользователя для пользователя
+     *  в данный момент аутентифицированного пользователя (default: session storage) */
+    userStore: new WebStorageStateStore({store: window.localStorage}),
+
+    /** Флаг, чтобы указать, должна ли быть автоматическая попытка возобновить токен
+     *  доступа до его истечения (по умолчанию: false) */
     automaticSilentRenew: true,
-    accessTokenExpiringNotificationTime: 4,
-    // silentRequestTimeout:10000,
 
+    /**Количество секунд до того, как токен доступа истекает, чтобы поднять
+     * событие accessTokenExpiring (по умолчанию: 60) */
+    accessTokenExpiringNotificationTime: 30,
+
+    /** Количество миллисекунд, чтобы ждать молчаливого обновления, чтобы вернуться
+     *  до того, как предположить, что он не удался или истечет (по умолчанию: 10000) */
+    silentRequestTimeout: 10000,
+
+    /** следует ли удалять утверждения протокола OIDC из файлов profile. (по умолчанию: true) */
     filterProtocolClaims: true,
-    loadUserInfo: true
-    
-};
 
+    /** флаг для управления загрузкой дополнительных идентификационных данных
+     *  из конечной точки сведений о пользователе для заполнения файла profile.
+     *  (по умолчанию: true) */
+    loadUserInfo: true,
+
+
+    // --- Дополнительные настройки не входившие в шаблон ---------------------------------------
+    // ------------------------------------------------------------------------------------------
+
+    /** URL для страницы, содержащей вызов для SigninPopupCallback для обработки
+     *  обратного вызова от OIDC / OAUTH2 */
+    //popup_redirect_uri: "",
+
+    /** Параметр функций в Window.Open для окна всплывающего окна.
+     *  default: 'location=no,toolbar=no,width=500,height=500,left=100,top=100' */
+    //popupWindowFeatures: "",
+
+    /** target параметр window.open для всплывающего окна входа. (default: '_blank') */
+    popupWindowTarget: "_blank",
+
+    /** флаг для управления id_token включением, как id_token_hint в автоматических вызовах
+     *  обновления. (default: true) */
+    includeIdTokenInSilentRenew: true,
+
+    /** вызовет события, когда пользователь выполнил выход из OP. (default: true) */
+    monitorSession: true,
+
+    /** интервал в миллисекундах для проверки сеанса пользователя (2 секунды) (default: 2000) */
+    checkSessionInterval: 2000,
+
+    /** вызовет конечную точку отзыва при выходе из системы, если для
+     *  пользователя имеется токен доступа. (default: false) */
+    revokeAccessTokenOnSignout: false,
+
+    /** The OIDC/OAuth2 post-logout  URI перенаправления когда используешь popup */
+    //popup_post_logout_redirect_uri: "",
+
+    /** число (в секундах), указывающее возраст записей состояния в хранилище
+     * для запросов на авторизацию, которые считаются брошенными и, следовательно,
+     * могут быть очищены. (default: 300) */
+    staleStateAge: 300,
+
+    /** Окно времени (в секундах), позволяющее текущему времени отклоняться
+     *  при проверке значений id_token iat, nbf, и exp. (default: 300) */
+    clockSkew: 300,
+
+    /**  (default: local storage) Объект хранилища, используемый для сохранения состояния
+     *  взаимодействия. Например userStore: new WebStorageStateStore({ store:
+     *  window.localStorage })*/
+    stateStore: new WebStorageStateStore({store: window.localStorage}),
+
+    /** (по умолчанию: false) указывает, объединяются ли объекты, возвращенные
+     *  из конечной точки информации о пользователе в качестве утверждений
+     *  (например address, ), с утверждениями из токена id как единый объект.
+     *  В противном случае они добавляются в массив как отдельные
+     *  объекты для типа утверждения.*/
+    mergeClaims: false
+
+};
 
 
 @Injectable({
@@ -145,43 +234,53 @@ export class AuthService {
     }
 
     /**
-     * Сделать вход с главного окна
+     * Сделать вход Sign In
      */
     startSigninMainWindow() {
-        this.userManager.signinRedirect({data: 'some data'}).then(function () {
-            console.log('signinRedirect done');
-        }).catch(function (err) {
+        this.userManager.signinRedirect({data: 'some data'})
+            .then(function () {
+                console.log('signinRedirect done');
+                window.alert('signinRedirect done');
+            }).catch(function (err) {
             console.log(err);
+            window.alert(err.toString());
         });
     }
 
     /**
-     * Сделать выход с главного окна
+     * Ответ процесса от конечной точки авторизации.
      */
     endSigninMainWindow() {
-        this.userManager.signinRedirectCallback().then(function (user) {
+        this.userManager.signinRedirectCallback().then(user => {
+            window.alert(`signed in ${user}`);
             console.log('signed in', user);
         }).catch(function (err) {
+            window.alert(err.toString());
             console.log(err);
         });
     }
 
+    /** Разлогиниться  Sign Out */
     startSignoutMainWindow() {
         this.userManager.getUser().then(user => {
-            return this.userManager.signoutRedirect({id_token_hint: user?.id_token})
+            return this.userManager
+                .signoutRedirect({id_token_hint: user?.id_token})
                 .then(resp => {
+                    window.alert(`signed in ${resp}`);
                     console.log('signed out', resp);
                     setTimeout(() => {
+                        window.alert('testing to see if fired...');
                         console.log('testing to see if fired...');
                     }, 5000);
                 }).catch(function (err) {
+                    window.alert(err.toString());
                     console.log(err);
                 });
         });
     };
 
     endSignoutMainWindow() {
-        this.userManager.signoutRedirectCallback().then(function (resp) {
+        this.userManager.signoutRedirectCallback().then(resp => {
             console.log('signed out', resp);
         }).catch(function (err) {
             console.log(err);
@@ -246,31 +345,31 @@ export class AuthService {
     }
 
 
-/*
-    private _setAuthHeaders(user: any): void {
-        this.authHeaders = new Headers();
-        this.authHeaders.append('Authorization', user.token_type + ' ' + user.access_token);
-        if (this.authHeaders.get('Content-Type')) {
+    /*
+     private _setAuthHeaders(user: any): void {
+     this.authHeaders = new Headers();
+     this.authHeaders.append('Authorization', user.token_type + ' ' + user.access_token);
+     if (this.authHeaders.get('Content-Type')) {
 
-        } else {
-            this.authHeaders.append('Content-Type', 'application/json');
-        }
-    }
-*/
+     } else {
+     this.authHeaders.append('Content-Type', 'application/json');
+     }
+     }
+     */
 
-/*
-    private _setRequestOptions(options?: any) {
-        if (this.loggedIn) {
-            this._setAuthHeaders(this.currentUser);
-        }
-        if (options) {
-            options?.headers?.append(this.authHeaders?.keys[0], this.authHeaders?.values[0]);
-        } else {
-            options = {headers: this.authHeaders};
-        }
+    /*
+     private _setRequestOptions(options?: any) {
+     if (this.loggedIn) {
+     this._setAuthHeaders(this.currentUser);
+     }
+     if (options) {
+     options?.headers?.append(this.authHeaders?.keys[0], this.authHeaders?.values[0]);
+     } else {
+     options = {headers: this.authHeaders};
+     }
 
-        return options;
-    }
-*/
+     return options;
+     }
+     */
 
 }

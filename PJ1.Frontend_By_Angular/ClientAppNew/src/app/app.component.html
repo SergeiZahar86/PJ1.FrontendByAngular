@@ -1,0 +1,20 @@
+<div>
+  <h1>{{title}}</h1>
+
+  <div style="padding:10px;margin-bottom:30px;display:block;">
+    <button 
+            [routerLink]="['']"
+            >One resource
+    </button>
+    <button
+            [routerLink]="['two']"
+    >Two resource
+    </button>
+    <button
+            [routerLink]="['three']"
+    >three resource
+    </button>
+  </div>
+  
+  <router-outlet></router-outlet>
+</div>

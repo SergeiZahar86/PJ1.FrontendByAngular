@@ -1,27 +1,41 @@
 <div>
-    <button (click)="clearState()"
+    <button mat-raised-button
+            color="primary"
+            (click)="clearState()"
             id='clearState'>Очистить устаревшее состояние
     </button>
-    <button (click)="getUser()"
+    <button mat-raised-button
+            color="primary"
+            (click)="getUser()"
             id='getUser'>Получить пользователя
     </button>
-    <button (click)="removeUser()"
+    <button mat-raised-button
+            color="primary"
+            (click)="removeUser()"
             id='removeUser'>Удалить пользователя
     </button>
 </div>
 <div>
-    <button (click)="startSigninMainWindow()"
-            id='startSigninMainWindow'>Начать сигнал главного окна
+    <button mat-raised-button
+            color="primary"
+            (click)="startSigninMainWindow()"
+            id='startSigninMainWindow'>Sign In
     </button>
-    <button (click)="endSigninMainWindow()"
+    <button mat-raised-button
+            color="primary"
+            (click)="endSigninMainWindow()"
             id='endSigninMainWindow'>Завершить главное окно
     </button>
 </div>
 <div>
-    <button (click)="startSignoutMainWindow()"
-            id='startSignoutMainWindow'>Начните подписание главное окно
+    <button mat-raised-button
+            color="primary"
+            (click)="startSignoutMainWindow()"
+            id='startSignoutMainWindow'>Sign Out
     </button>
-    <button (click)="endSignoutMainWindow()"
+    <button mat-raised-button
+            color="primary"
+            (click)="endSignoutMainWindow()"
             id='endSignoutMainWindow'>Конец подписания главного окна
     </button>
 </div>

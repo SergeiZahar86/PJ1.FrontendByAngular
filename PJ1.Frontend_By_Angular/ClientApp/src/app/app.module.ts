@@ -12,6 +12,7 @@ import {LogoutComponent} from './logout/logout.component';
 import {ProtectedComponent} from './protected/protected.component';
 import {AuthService} from "./services/auth.service";
 import {AuthGuardService} from "./services/auth-guard.service";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import {AuthGuardService} from "./services/auth-guard.service";
         HttpClientModule,
         BrowserModule,
         AppRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatButtonModule
     ],
     providers: [
         AuthService,

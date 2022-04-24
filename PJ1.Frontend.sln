@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PJ1.Frontend_By_Angular", "PJ1.Frontend_By_Angular\PJ1.Frontend_By_Angular.csproj", "{6F419C74-CE41-4DE2-87A9-3D32717C2971}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PJ1.FrontByAngular", "PJ1.FrontByAngular\PJ1.FrontByAngular.csproj", "{01501917-84CC-4D14-826C-89B12F9EDE56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{6F419C74-CE41-4DE2-87A9-3D32717C2971}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F419C74-CE41-4DE2-87A9-3D32717C2971}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F419C74-CE41-4DE2-87A9-3D32717C2971}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01501917-84CC-4D14-826C-89B12F9EDE56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01501917-84CC-4D14-826C-89B12F9EDE56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01501917-84CC-4D14-826C-89B12F9EDE56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01501917-84CC-4D14-826C-89B12F9EDE56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

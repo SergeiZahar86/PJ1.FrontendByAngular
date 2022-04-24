@@ -18,6 +18,7 @@ namespace PJ1.Frontend_By_Angular.Configures
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseHttpsRedirection();
             app.UseDefaultFiles();
 
             // app.UseDefaultFiles(new DefaultFilesOptions
@@ -26,6 +27,8 @@ namespace PJ1.Frontend_By_Angular.Configures
             // });
 
             app.UseStaticFiles();
+            app.UseRouting();
+            
 
             // app.UseStaticFiles(new StaticFileOptions
             // {

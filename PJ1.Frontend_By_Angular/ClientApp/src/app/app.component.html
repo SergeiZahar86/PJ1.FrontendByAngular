@@ -1,5 +1,34 @@
-<h1>{{title}}</h1>
-<div style="padding:10px;margin-bottom:30px;display:block;">
-    <a [routerLink]="['protected']">protected resource</a>
+<div>
+    <h1>{{title}}</h1>
+
+    <div style="padding:10px;margin-bottom:30px;display:block;">
+        <button mat-raised-button
+                color="accent"
+                [routerLink]="['']"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}">dashboard resource
+        </button>
+    </div>
+    <div style="padding:10px;margin-bottom:30px;display:block;">
+        <button mat-raised-button
+                color="accent"
+                [routerLink]="['login']"
+                routerLinkActive="active">Login page
+        </button>
+    </div>
+    <div style="padding:10px;margin-bottom:30px;display:block;">
+        <button mat-raised-button
+                color="accent"
+                [routerLink]="['unauthorized']"
+                routerLinkActive="active">unauthorized resource
+        </button>
+    </div>
+    <div style="padding:10px;margin-bottom:30px;display:block;">
+        <button mat-raised-button
+                color="accent"
+                [routerLink]="['protected']"
+                routerLinkActive="active">protected resource
+        </button>
+    </div>
+    <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>
