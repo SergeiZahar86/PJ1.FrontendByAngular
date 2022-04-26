@@ -30,13 +30,13 @@ const settings: any = {
 
     /** Redirect URI вашего клиента приложения при получения ответа
      *  от провайдера OIDC / OAUTH2 */
-    redirect_uri: 'http://localhost:10003/auth.html',
+    redirect_uri: 'http://localhost:10003/callback.html',
 
     /** The OIDC/OAuth2 post-logout перенаправление после разлагина URI */
-    post_logout_redirect_uri: 'http://localhost:10003/',
+    post_logout_redirect_uri: 'http://localhost:10003/signout-callback.html',
 
     /** URL -адрес страницы, содержащей код, обрабатывает тихое возобновление */
-    silent_redirect_uri: 'http://localhost:10003/silent-renew.html',
+    silent_redirect_uri: 'http://localhost:10003/renew-callback.html',
 
     /** Тип ответа требуемый из поставщика OIDC / OAUTH2 (default: 'id_token') */
     response_type: 'code',
@@ -151,8 +151,7 @@ export class AuthService {
     authHeaders: any;
 
     constructor(private http: HttpClient) {
-        this.userManager.getUser()
-            .then((user) => {
+        this.userManager.getUser().then((user) => {
                 if (user) {
                     this.loggedIn = true;
                     this.currentUser = user;
@@ -239,10 +238,10 @@ export class AuthService {
         this.userManager.signinRedirect({data: 'some data'})
             .then(function () {
                 console.log('signinRedirect done');
-                window.alert('signinRedirect done');
+                //window.alert('signinRedirect done');
             }).catch(function (err) {
             console.log(err);
-            window.alert(err.toString());
+            //window.alert(err.toString());
         });
     }
 
@@ -251,10 +250,10 @@ export class AuthService {
      */
     endSigninMainWindow() {
         this.userManager.signinRedirectCallback().then(user => {
-            window.alert(`signed in ${user}`);
+            //window.alert(`signed in ${user}`);
             console.log('signed in', user);
         }).catch(function (err) {
-            window.alert(err.toString());
+            //window.alert(err.toString());
             console.log(err);
         });
     }
@@ -265,14 +264,14 @@ export class AuthService {
             return this.userManager
                 .signoutRedirect({id_token_hint: user?.id_token})
                 .then(resp => {
-                    window.alert(`signed in ${resp}`);
+                    //window.alert(`signed in ${resp}`);
                     console.log('signed out', resp);
                     setTimeout(() => {
-                        window.alert('testing to see if fired...');
+                        //window.alert('testing to see if fired...');
                         console.log('testing to see if fired...');
                     }, 5000);
                 }).catch(function (err) {
-                    window.alert(err.toString());
+                    //window.alert(err.toString());
                     console.log(err);
                 });
         });

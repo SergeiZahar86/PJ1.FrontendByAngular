@@ -1,5 +1,6 @@
 <body>
-<app-nav-menu></app-nav-menu>
+<app-nav-menu (clickSignInEvent)="clickSignInEvent()"
+              (getCurentUser)="getCurentUser()"></app-nav-menu>
 <button
         [routerLink]="['']"
 >One resource
@@ -12,9 +13,9 @@
         [routerLink]="['fetch-data']"
 >fetch-data
 </button>
-  <div class = "token">
+<div class="token">
     {{curentUserString | json}}
-  </div>
+</div>
 <div class="container">
     <router-outlet></router-outlet>
 </div>
