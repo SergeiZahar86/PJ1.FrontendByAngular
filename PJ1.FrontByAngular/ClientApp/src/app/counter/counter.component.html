@@ -5,3 +5,11 @@
 <p aria-live="polite">Current count: <strong>{{ currentCount }}</strong></p>
 
 <button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+
+<button mat-raised-button color="accent" class="mt-5 d-block"  *ngIf=!token
+            (click)="clickSignIn()">Sign In</button>
+<button mat-raised-button color="accent" class="mt-4 d-block" *ngIf=token
+        (click)="clickSignOut()">Sign Out</button>
+<button mat-raised-button color="accent" class="mt-5 d-block"  *ngIf=token
+        (click)="getClaims()">Get Claims</button>
+<div class="claims mt-4">{{claims | json}}</div>
