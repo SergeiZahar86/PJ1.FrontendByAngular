@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
@@ -12,8 +11,7 @@ import {FetchDataComponent} from './fetch-data/fetch-data.component';
 import {MatButtonModule} from "@angular/material/button";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {OAuthModule} from "angular-oauth2-oidc";
-//import {AuthService} from "./services/auth.service";
-//import {AuthGuardService} from "./services/auth-guard.service";
+import {AuthOidcService} from "./Authentication/Services/auth-oidc.service";
 
 @NgModule({
     declarations: [
@@ -38,8 +36,7 @@ import {OAuthModule} from "angular-oauth2-oidc";
         OAuthModule.forRoot()
     ],
     providers: [
-//        AuthService,
-//        AuthGuardService
+        AuthOidcService
     ],
     bootstrap: [AppComponent]
 })

@@ -1,8 +1,8 @@
 import {AfterContentInit, Component, OnInit} from '@angular/core';
-import {AuthOidcService} from "../services/auth-oidc.service";
 import {OAuthService} from "angular-oauth2-oidc";
-import {authCodeFlowConfig} from "../authCodeFlowConfig";
 import {Router} from "@angular/router";
+import {authCodeFlowConfig} from "../Authentication/authCodeFlowConfig";
+import {AuthOidcService} from "../Authentication/Services/auth-oidc.service";
 
 @Component({
 	selector: 'app-counter-component',
@@ -15,39 +15,46 @@ export class CounterComponent implements OnInit, AfterContentInit {
 
 	public claims: any;
 
-	constructor(private authOidcService: AuthOidcService,
-		private oAuthService: OAuthService, private router: Router) {
+	constructor(private oAuthService: OAuthService,
+		private router: Router,
+		private authOidcService: AuthOidcService) {
 	}
 
 	async ngAfterContentInit(): Promise<void> {
-		this.oAuthService.configure(authCodeFlowConfig);
-		await this.oAuthService.loadDiscoveryDocumentAndTryLogin();
 	}
 
-
+	/**
+	 * Увеличивает счетчик
+	 */
 	public incrementCounter() {
 		this.currentCount++;
 	}
 
+	/**
+	 * Пройти аутентификацию 
+	 */
 	clickSignIn() {
-		console.log("login ",);
-		this.oAuthService.setupAutomaticSilentRefresh();
-		this.oAuthService.initCodeFlow();
+		this.authOidcService.signIn();
 	}
 
+	/**
+	 * Разлогиниться
+	 */
 	clickSignOut() {
-		console.log("logout ",);
-		this.oAuthService.logOut();
+		this.authOidcService.signOut();
 	}
 
 	get token() {
-		this.claims = this.oAuthService.getIdentityClaims();
+		this.claims = this.authOidcService.getClaims();
 		return this.claims ? this.claims : null;
 	}
 
 	ngOnInit(): void {
 	}
 
+	/**
+	 * Получить требования о пользователе
+	 */
 	getClaims() {
 		if (this.claims) {
 			console.log("login claims ",this.claims);

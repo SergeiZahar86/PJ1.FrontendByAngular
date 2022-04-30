@@ -7,7 +7,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 })
 export class NavMenuComponent {
 	isExpanded = false;
-	
+
 	/** Событие для аутентификации */
 	@Output()
 	clickSignInEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -15,7 +15,7 @@ export class NavMenuComponent {
 	/** Событие для получения пользователя */
 	@Output()
 	getCurentUser: EventEmitter<boolean> = new EventEmitter<boolean>();
-	
+
 	collapse() {
 		this.isExpanded = false;
 	}
