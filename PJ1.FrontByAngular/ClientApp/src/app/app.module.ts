@@ -9,35 +9,42 @@ import {HomeComponent} from './home/home.component';
 import {CounterComponent} from './counter/counter.component';
 import {FetchDataComponent} from './fetch-data/fetch-data.component';
 import {MatButtonModule} from "@angular/material/button";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {OAuthModule} from "angular-oauth2-oidc";
 import {AuthOidcService} from "./Authentication/Services/auth-oidc.service";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NavMenuComponent,
-        HomeComponent,
-        CounterComponent,
-        FetchDataComponent
-    ],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-        HttpClientModule,
-        FormsModule,
-        RouterModule.forRoot([
-            {path: '', component: HomeComponent, pathMatch: 'full'},
-            {path: 'counter', component: CounterComponent},
-            {path: 'fetch-data', component: FetchDataComponent},
-        ]),
-        MatButtonModule,
-        MatButtonModule,
-        BrowserAnimationsModule,
-        OAuthModule.forRoot()
-    ],
-    providers: [
-        AuthOidcService
-    ],
-    bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		NavMenuComponent,
+		HomeComponent,
+		CounterComponent,
+		FetchDataComponent
+	],
+	imports: [
+		BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+		HttpClientModule,
+		FormsModule,
+		RouterModule.forRoot([
+			{path: '', component: HomeComponent, pathMatch: 'full'},
+			{path: 'counter', component: CounterComponent},
+			{path: 'fetch-data', component: FetchDataComponent},
+		]),
+		MatButtonModule,
+		MatButtonModule,
+		BrowserAnimationsModule,
+		OAuthModule.forRoot(
+//			{
+//				resourceServer: {
+//					allowedUrls: ['https://localhost:7001'],
+//					sendAccessToken: true
+//				}
+//			}
+		)
+	],
+	providers: [
+		AuthOidcService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule {}

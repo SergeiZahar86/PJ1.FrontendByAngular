@@ -3,6 +3,7 @@ import {OAuthService} from "angular-oauth2-oidc";
 import {Router} from "@angular/router";
 import {authCodeFlowConfig} from "../Authentication/authCodeFlowConfig";
 import {AuthOidcService} from "../Authentication/Services/auth-oidc.service";
+import {ApiService} from "../services/api.service";
 
 @Component({
 	selector: 'app-counter-component',
@@ -17,7 +18,8 @@ export class CounterComponent implements OnInit, AfterContentInit {
 
 	constructor(private oAuthService: OAuthService,
 		private router: Router,
-		private authOidcService: AuthOidcService) {
+		private authOidcService: AuthOidcService,
+		private apiService: ApiService) {
 	}
 
 	async ngAfterContentInit(): Promise<void> {
@@ -59,5 +61,12 @@ export class CounterComponent implements OnInit, AfterContentInit {
 		if (this.claims) {
 			console.log("login claims ",this.claims);
 		}
+	}
+
+	/** Получение всех пользователей (фейковых) */
+	getAll() {
+		this.apiService.getAll().subscribe(users => {
+			console.log("users ",users);
+		})
 	}
 }
