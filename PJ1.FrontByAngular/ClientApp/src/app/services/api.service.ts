@@ -3,6 +3,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthOidcService} from "../Authentication/Services/auth-oidc.service";
 import {OAuthStorage} from "angular-oauth2-oidc";
 import {C} from "@angular/cdk/keycodes";
+import {AuthService} from "../core/auth/auth.service";
+import {Observable} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 
 @Injectable({
 	providedIn: 'root'
@@ -11,12 +14,13 @@ export class ApiService {
 
 	constructor(private httpClient: HttpClient,
 		private authOidcService: AuthOidcService,
-		private authStorage: OAuthStorage) {
+		private authStorage: OAuthStorage,
+		private authService: AuthService) {
 
 	}
 
 	/** Получение всех пользователей (фейковых) */
-	getAll(reportInfo?: any) {
+	getAll(reportInfo?: any){
 
 //    let user = this.authService.currentUser;
 //    let fff = `${user?.access_token}`;
@@ -40,23 +44,59 @@ export class ApiService {
 //		let headers = new HttpHeaders(
 //        {'Authorization': "Bearer " +`${token}`});
 
-		let token = this.authStorage.getItem('access_token');
-		let token_22 = this.authOidcService.getAccessToken();
-		let IdToken = this.authOidcService.getIdToken();
-		let header = 'Bearer ' + token;
-		let headers = new HttpHeaders();
-		headers.set('Content-Type', 'application/json');
-		headers.set('Authorization', header);
-
-		console.log("claims ",this.authOidcService.getClaims());
+//		let token = this.authStorage.getItem('access_token');
+//		let token_22 = this.authOidcService.getAccessToken();
+//		this.authOidcService.getIdToken();
 		
-		return this.httpClient.get("https://localhost:7001/Api/GetAll",
-			{
-          headers: headers
-        });
+		let newToken = this.authService.getToken().subscribe(token =>{
+			this.newToken = token;
+		});
+		
+//		let header = 'Bearer ' + this.newToken;
+//		let headers = new HttpHeaders();
+//		headers.set('Content-Type', 'application/json');
+//		headers.set('Authorization', header);
+
+		let headers = new HttpHeaders(
+        {'Authorization': "Bearer " +`${this.newToken}`});
+
+		console.log("newToken ",this.newToken);
+		
+		if(this.newToken){
+			return this.httpClient.get("https://localhost:7001/Api/GetAll",
+				{
+					headers: headers
+				})
+				.pipe(map(x => {
+					return x;
+				}),
+					catchError( err => {
+						console.log(err);
+						return [];
+					}));
+		}else {
+			const foo = new Observable(subscriber => {
+				console.log('Nothing');
+			});
+			return foo;
+		}
 
 
 	}
 
+	getUsers() : Observable<any> {
+		return this.httpClient.get('assets/usersP.json').pipe(map((data:any)=>{
+				let usersList = data["userList"];
+
+				return usersList.map(function(user:any)  {
+					return null;
+				});
+			}),
+			catchError(err => {
+				console.log(err);
+				return [];
+			}))
+	};
+	newToken: string | undefined;
 
 }

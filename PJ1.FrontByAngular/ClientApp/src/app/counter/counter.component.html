@@ -4,6 +4,7 @@
 
 <p aria-live="polite">Current count: <strong>{{ currentCount }}</strong></p>
 
+<!--
 <button class="btn btn-primary"
         (click)="incrementCounter()">Increment
 </button>
@@ -30,4 +31,36 @@
         class="mt-5 d-block"
         (click)="getAll()">Get Api getAll()
 </button>
+-->
+<button class="btn btn-primary"
+        (click)="incrementCounter()">Increment
+</button>
+
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="clickSignIn()">Sign In
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-4 d-block"
+        (click)="clickSignOut()">Sign Out
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="getUserData()">getUserData
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="getState()">getState
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="getAll()">Get Api getAll()
+</button>
+
+
 <div class="claims mt-4">{{claims | json}}</div>
