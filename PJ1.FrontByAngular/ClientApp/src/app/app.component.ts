@@ -8,7 +8,8 @@ import {AuthService} from "./core/auth/auth.service";
 })
 export class AppComponent implements OnInit, AfterContentInit {
 	title = 'app';
-
+	
+	//todo убрать мусор от старой библиотеки аутентификации
 	constructor(private authOidcService: AuthOidcService,
 		private authService: AuthService) {
 	}
