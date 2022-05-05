@@ -60,11 +60,11 @@ const authFactory = (configService: ConfigService) => {
 		AuthModule.forRoot({
 			config:{
 				authority: 'https://localhost:10001',
-				redirectUrl: 'https://localhost:10003' + '/counter',
+				redirectUrl: 'https://localhost:10003/counter',
 				clientId: 'client_angular',
 				responseType: 'code',
 				scope: 'openid profile SwaggerAPI',
-				postLogoutRedirectUri: 'https://localhost:10003',
+				postLogoutRedirectUri: 'https://localhost:10003/counter',
 				forbiddenRoute: '/forbidden',
 				unauthorizedRoute: '/unauthorized',
 				silentRenew: true,

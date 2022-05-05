@@ -14,9 +14,11 @@ export class AppComponent implements OnInit, AfterContentInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		//await this.authOidcService.loadConfigure();
-		this.authService.initAuth();
-		this.authService.checkAuth();
+		await this.authOidcService.loadConfigure();
+		
+		
+//		this.authService.initAuth();
+//		this.authService.checkAuth();
 	}
 
 	async ngAfterContentInit(): Promise<void> {

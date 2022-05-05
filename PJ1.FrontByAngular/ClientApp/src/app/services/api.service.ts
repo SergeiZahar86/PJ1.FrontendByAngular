@@ -48,9 +48,13 @@ export class ApiService {
 //		let token_22 = this.authOidcService.getAccessToken();
 //		this.authOidcService.getIdToken();
 		
+		// для AuthService
 		let newToken = this.authService.getToken().subscribe(token =>{
 			this.newToken = token;
 		});
+		
+		// Для AuthOidcService
+		let TK = this.authOidcService.getAccessToken();
 		
 //		let header = 'Bearer ' + this.newToken;
 //		let headers = new HttpHeaders();
@@ -58,11 +62,11 @@ export class ApiService {
 //		headers.set('Authorization', header);
 
 		let headers = new HttpHeaders(
-        {'Authorization': "Bearer " +`${this.newToken}`});
+        {'Authorization': "Bearer " +`${TK}`});
 
-		console.log("newToken ",this.newToken);
+		console.log("newToken ",TK);
 		
-		if(this.newToken){
+		if(TK){
 			return this.httpClient.get("https://localhost:7001/Api/GetAll",
 				{
 					headers: headers

@@ -22,3 +22,48 @@
     </tr>
   </tbody>
 </table>
+
+
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="clickSignIn()">Sign In
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-4 d-block"
+        (click)="clickSignOut()">Sign Out
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="getAccessToken()">get Access Token
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="getClaims()">get Claims
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="hasValidAccessToken()">Valid Access Token
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="silentRefresh()">silent Refresh
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="loadUserProfile()">load User Profile
+</button>
+<button mat-raised-button
+        color="accent"
+        class="mt-5 d-block"
+        (click)="getAll()">Get Api getAll()
+</button>
+
+
+<div class="claims mt-4">{{claims | json}}</div>
