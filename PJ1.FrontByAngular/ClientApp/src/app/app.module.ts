@@ -68,12 +68,12 @@ export function storageFactory(): OAuthStorage {
 		MatButtonModule,
 		BrowserAnimationsModule,
 		OAuthModule.forRoot(
-//			{
-//				resourceServer: {
-//					allowedUrls: ['https://localhost:7001'],
-//					sendAccessToken: true
-//				}
-//			}
+			{
+				resourceServer: {
+					allowedUrls: [AuthOidcService.urlBusinessService],
+					sendAccessToken: true
+				}
+			}
 		)
 	],
 	providers: [

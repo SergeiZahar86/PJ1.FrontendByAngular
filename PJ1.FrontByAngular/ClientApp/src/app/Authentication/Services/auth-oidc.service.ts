@@ -9,8 +9,9 @@ import {HttpClient} from "@angular/common/http";
 	providedIn: 'root'
 })
 export class AuthOidcService {
-	private username: any;
 
+	static urlBusinessService: string = "https://localhost:7001";
+	
 	constructor(private oAuthService: OAuthService, private httpClient: HttpClient) {
 	}
 
