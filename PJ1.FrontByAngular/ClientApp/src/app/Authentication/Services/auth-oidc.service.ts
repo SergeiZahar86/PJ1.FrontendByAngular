@@ -14,6 +14,16 @@ export class AuthOidcService {
 	constructor(private oAuthService: OAuthService, private httpClient: HttpClient) {
 	}
 
+	/**
+	 * Проверка наличия валидных токенов
+	 * @returns {boolean}
+	 */
+	hasAccess(): boolean{
+		let hasIdToken = this.oAuthService.hasValidIdToken();
+		let hasAccessToken = this.oAuthService.hasValidAccessToken();
+		return (hasIdToken && hasAccessToken);
+	}
+	
 	/** Загрузите документ Discovery и попробуйте войти в систему */
 	public async loadConfigure(): Promise<void> {
 		this.oAuthService.configure(authCodeFlowConfig);

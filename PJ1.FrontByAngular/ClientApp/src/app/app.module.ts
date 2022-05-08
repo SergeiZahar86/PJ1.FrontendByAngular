@@ -13,12 +13,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthOidcService} from "./Authentication/Services/auth-oidc.service";
 import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
 import {OAuthModule, OAuthStorage} from "angular-oauth2-oidc";
+import {AuthGuard} from "./Authentication/auth.guard";
 
 /**
  * Нам нужна фабрика, так как LocalStorage не доступна во время построения AOT.
  * @returns {OAuthStorage}
  */
-export function storageFactory() : OAuthStorage {
+export function storageFactory(): OAuthStorage {
 	return localStorage
 }
 
@@ -36,12 +37,32 @@ export function storageFactory() : OAuthStorage {
 		HttpClientModule,
 		FormsModule,
 		RouterModule.forRoot([
-			{path: '', component: HomeComponent, pathMatch: 'full'},
-			{path: 'counter', component: CounterComponent},
-			{path: 'fetch-data', component: FetchDataComponent},
-			{path: 'unauthorized', component: UnauthorizedComponent},
-			{path: 'forbidden', component: UnauthorizedComponent},
-			{path: '**', redirectTo: ''}
+			{
+				path: '',
+				component: HomeComponent,
+				pathMatch: 'full'
+			},
+			{
+				path: 'counter',
+				component: CounterComponent,
+				canActivate: [AuthGuard],
+			},
+			{
+				path: 'fetch-data',
+				component: FetchDataComponent
+			},
+			{
+				path: 'unauthorized',
+				component: UnauthorizedComponent
+			},
+			{
+				path: 'forbidden',
+				component: UnauthorizedComponent
+			},
+			{
+				path: '**',
+				redirectTo: ''
+			}
 		]),
 		MatButtonModule,
 		MatButtonModule,
@@ -57,7 +78,11 @@ export function storageFactory() : OAuthStorage {
 	],
 	providers: [
 		AuthOidcService,
-		{ provide: OAuthStorage, useFactory: storageFactory }
+		AuthGuard,
+		{
+			provide: OAuthStorage,
+			useFactory: storageFactory
+		}
 	],
 	bootstrap: [AppComponent]
 })
