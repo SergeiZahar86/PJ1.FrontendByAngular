@@ -19,31 +19,7 @@ export class AuthOidcService {
 		this.oAuthService.configure(authCodeFlowConfig);
 		this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
 		this.oAuthService.setupAutomaticSilentRefresh();
-		await this.oAuthService.loadDiscoveryDocumentAndLogin();
-		//await this.oAuthService.loadDiscoveryDocumentAndTryLogin();
-
-
-		/* this.oAuthService.loadDiscoveryDocument()
-
-		// See if the hash fragment contains tokens (when user got redirected back)
-		.then(() => this.oAuthService.tryLogin())
-
-		// If we're still not logged in yet, try with a silent refresh:
-		.then(x => {
-			if (!this.oAuthService.hasValidAccessToken()) {
-				return this.oAuthService.silentRefresh();
-			}else {
-				return x;
-			}
-		})
-
-		// Get username, if possible.
-		.then(() => {
-			if (this.oAuthService.getIdentityClaims()) {
-				this.username = this.oAuthService.getIdentityClaims()['name'];
-			}
-		});
-		this.oAuthService.setupAutomaticSilentRefresh(); */
+		this.oAuthService.loadDiscoveryDocumentAndLogin();
 		
 		// For debugging:
 		this.oAuthService.events.subscribe(
@@ -58,10 +34,7 @@ export class AuthOidcService {
 	 */
 	public signIn(): void {
 		console.log("login ",);
-		//this.oAuthService.setStorage(window.localStorage);
-		//this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
 		this.oAuthService.initCodeFlow();
-		//this.oAuthService.setupAutomaticSilentRefresh();
 
 	}
 
@@ -105,7 +78,6 @@ export class AuthOidcService {
 	 */
 	public getClaims(): object {
 		let claims = this.oAuthService.getIdentityClaims();
-		//console.log("claims ",claims);
 		return claims;
 	}
 

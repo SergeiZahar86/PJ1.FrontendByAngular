@@ -42,6 +42,9 @@ export class FetchDataComponent {
 
 	}
 
+	/**
+	 * Получить Access Token
+	 */
 	getAccessToken(){
 		let accessToken = this.authOidcService.getAccessToken();
 		console.log("accessToken ",accessToken);

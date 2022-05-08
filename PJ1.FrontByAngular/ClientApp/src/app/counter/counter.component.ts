@@ -1,10 +1,4 @@
 import {AfterContentInit, Component, OnInit} from '@angular/core';
-import {OAuthService} from "angular-oauth2-oidc";
-import {Router} from "@angular/router";
-import {authCodeFlowConfig} from "../Authentication/authCodeFlowConfig";
-import {AuthOidcService} from "../Authentication/Services/auth-oidc.service";
-import {ApiService} from "../services/api.service";
-import {AuthService} from "../core/auth/auth.service";
 
 @Component({
 	selector: 'app-counter-component',
@@ -17,11 +11,7 @@ export class CounterComponent implements OnInit, AfterContentInit {
 
 	public claims: any;
 
-	constructor(private oAuthService: OAuthService,
-		private router: Router,
-		private authOidcService: AuthOidcService,
-		private apiService: ApiService,
-		private authService: AuthService) {
+	constructor() {
 	}
 
 	async ngAfterContentInit(): Promise<void> {
@@ -34,59 +24,8 @@ export class CounterComponent implements OnInit, AfterContentInit {
 		this.currentCount++;
 	}
 
-	/**
-	 * Пройти аутентификацию 
-	 */
-	clickSignIn() {
-		//this.authOidcService.signIn();
-		this.authService.login();
-	}
-
-	/**
-	 * Разлогиниться
-	 */
-	clickSignOut() {
-		//this.authOidcService.signOut();
-		this.authService.logout();
-	}
-
-//	get token() {
-//		this.claims = this.authOidcService.getClaims();
-//		return this.claims ? this.claims : null;
-//	}
-
-	/**
-	 * Получить состояние
-	 */
-	getState(){
-		console.log("getState ", this.authService.getState());
-	}
-
-	/**
-	 * Получить данные о пользователе
-	 */
-	getUserData(){
-		this.authService.getUserData();
-	}
-	
 
 	ngOnInit(): void {
 	}
 
-	/**
-	 * Получить требования о пользователе
-	 */
-	getClaims() {
-//		if (this.claims) {
-//			console.log("login claims ",this.claims);
-//		}
-	}
-
-	/** Получение всех пользователей (фейковых) */
-	getAll() {
-		this.apiService.getAll().subscribe(
-			users => {
-			console.log("users ",users);
-		})
-	}
 }

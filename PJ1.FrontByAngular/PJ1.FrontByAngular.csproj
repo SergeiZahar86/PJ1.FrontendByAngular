@@ -26,7 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClientApp\src\app\core\auth" />
       <Folder Include="ClientApp\src\app\services" />
     </ItemGroup>
 

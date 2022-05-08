@@ -1,6 +1,5 @@
-import {AfterContentInit, Component, NgIterable, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {AuthOidcService} from "./Authentication/Services/auth-oidc.service";
-import {AuthService} from "./core/auth/auth.service";
 
 @Component({
 	selector: 'app-root',
@@ -10,16 +9,11 @@ export class AppComponent implements OnInit, AfterContentInit {
 	title = 'app';
 	
 	//todo убрать мусор от старой библиотеки аутентификации
-	constructor(private authOidcService: AuthOidcService,
-		private authService: AuthService) {
+	constructor(private authOidcService: AuthOidcService) {
 	}
 
 	async ngOnInit(): Promise<void> {
 		await this.authOidcService.loadConfigure();
-		
-		
-//		this.authService.initAuth();
-//		this.authService.checkAuth();
 	}
 
 	async ngAfterContentInit(): Promise<void> {

@@ -12,24 +12,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {OAuthModule} from "angular-oauth2-oidc";
 import {AuthOidcService} from "./Authentication/Services/auth-oidc.service";
-import {CoreModule} from "./core/core.module";
 import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
-import {
-	AuthModule, OidcSecurityService, StsConfigLoader, StsConfigStaticLoader
-} from "angular-auth-oidc-client";
-import {ConfigService} from "./core/auth/config.service";
-import {AuthService} from "./core/auth/auth.service";
-
-
-/**
- * Создание фабрики конфигурации
- * @param {ConfigService} configService
- * @returns {StsConfigStaticLoader}
- */
-const authFactory = (configService: ConfigService) => {
-	const config = configService.getConfig();
-	return new StsConfigStaticLoader(config);
-};
 
 
 @NgModule({
@@ -56,25 +39,6 @@ const authFactory = (configService: ConfigService) => {
 		MatButtonModule,
 		MatButtonModule,
 		BrowserAnimationsModule,
-		//CoreModule,
-		AuthModule.forRoot({
-			config:{
-				authority: 'https://localhost:10001',
-				redirectUrl: 'https://localhost:10003/counter',
-				clientId: 'client_angular',
-				responseType: 'code',
-				scope: 'openid profile SwaggerAPI',
-				postLogoutRedirectUri: 'https://localhost:10003/counter',
-				forbiddenRoute: '/forbidden',
-				unauthorizedRoute: '/unauthorized',
-				silentRenew: true,
-				silentRenewUrl: 'https://localhost:10003' + '/silent-renew.html',
-				historyCleanupOff: true,
-				autoUserInfo: true,
-				logLevel: 3,
-				maxIdTokenIatOffsetAllowedInSeconds: 10
-			}
-		}),
 		OAuthModule.forRoot(
 //			{
 //				resourceServer: {
@@ -85,9 +49,7 @@ const authFactory = (configService: ConfigService) => {
 		)
 	],
 	providers: [
-		AuthOidcService,
-		AuthService,
-		OidcSecurityService,
+		AuthOidcService
 	],
 	bootstrap: [AppComponent]
 })
