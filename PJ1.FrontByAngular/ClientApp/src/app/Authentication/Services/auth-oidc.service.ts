@@ -19,7 +19,7 @@ export class AuthOidcService {
 		this.oAuthService.configure(authCodeFlowConfig);
 		this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
 		this.oAuthService.setupAutomaticSilentRefresh();
-		this.oAuthService.loadDiscoveryDocumentAndLogin();
+		this.oAuthService.loadDiscoveryDocumentAndTryLogin();
 		
 		// For debugging:
 		this.oAuthService.events.subscribe(

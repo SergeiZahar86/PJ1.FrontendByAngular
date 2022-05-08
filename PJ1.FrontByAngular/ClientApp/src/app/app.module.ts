@@ -10,10 +10,17 @@ import {CounterComponent} from './counter/counter.component';
 import {FetchDataComponent} from './fetch-data/fetch-data.component';
 import {MatButtonModule} from "@angular/material/button";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {OAuthModule} from "angular-oauth2-oidc";
 import {AuthOidcService} from "./Authentication/Services/auth-oidc.service";
 import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
+import {OAuthModule, OAuthStorage} from "angular-oauth2-oidc";
 
+/**
+ * Нам нужна фабрика, так как LocalStorage не доступна во время построения AOT.
+ * @returns {OAuthStorage}
+ */
+export function storageFactory() : OAuthStorage {
+	return localStorage
+}
 
 @NgModule({
 	declarations: [
@@ -49,7 +56,8 @@ import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
 		)
 	],
 	providers: [
-		AuthOidcService
+		AuthOidcService,
+		{ provide: OAuthStorage, useFactory: storageFactory }
 	],
 	bootstrap: [AppComponent]
 })
